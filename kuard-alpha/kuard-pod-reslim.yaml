@@ -1,0 +1,20 @@
+# Adds a limit of 1.0 CPU and 256 MB of Memory
+apiVersion: v1
+kind: Pod
+metadata:
+  name: kuard
+spec:
+  containers:
+    - image: pdub787/kuard:blue
+      name: kuard
+      resources:
+        requests:
+          cpu: "500m"
+          memory: "128Mi"
+        limits:
+          cpu: "100m"
+          memory: "156Mi"
+      ports:
+        - containerPort: 8080
+          name: http
+          protocol: TCP

@@ -1,0 +1,29 @@
+#  Pod configs - 8/28 @ 07:30
+kubectl run alpaca-prod \
+--image=pdub787/kuard:blue \
+--replicas=3 \
+--port=8080 \
+--labels="ver=1,app=alpaca,env=prod"
+
+
+kubectl expose pods alpaca-prod
+
+kubectl run bandicoot-prod \
+--image=pdub787/kuard:green \
+--replicas=2 \
+--port=8080 \
+--labels="ver=2,app=bandicoot,env=prod"
+
+kubectl expose pods bandicoot-prod
+
+kubectl get services -o wide
+
+
+# Service Objects
+# Interract with the service and port forward
+ALPACA_POD=$(kubectl get pods -l app=alpaca \
+> -o jsonpath='{.items[0].metadata.name}')
+
+kubectl port-forward $ALPACA_POD 48858:8080
+
+_________________________________
